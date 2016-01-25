@@ -1,0 +1,72 @@
+<html>
+	<head>
+	    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<style>
+			.addVideos{
+				width: 500px;
+			}
+			html, body {
+			    margin: 0;
+			    padding: 0;
+			}
+
+			.playlist-inline {
+				display: inline;
+			    padding-right:5px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="theVideos"></div>
+		<script type="text/template" id="bootstrapTemplate">
+			<div ng-controller="videoPlayer as controller">
+				<video width="640" height="360" id="the-video" preload="" controls="controls">
+					 <source ng-repeat="src in clips[controller.currentVideo].sources" src="{{controller.wrapResourceUrl(src.src)}}">
+				</video>
+
+			    <div class="playlist">
+			    	<div>Playlist - Click on clip name to play clip!<div>
+			        <ul>
+			        	<li ng-repeat="videos in controller.getClips() track by $index">
+			        		<a ng-click="controller.setVideo($index)" class="playlist-inline">{{videos.name}}</a>
+			        		<div class="playlist-inline">Start: {{videos.startTime}}, Stop: {{videos.endTime}}</div>
+			        		<div ng-click="controller.editClip($index)" class="playlist-inline">
+			        			<i class="fa fa-pencil-square-o"></i>
+			        		</div>
+			        		<div ng-click="controller.deleteClip($index)" class="playlist-inline">
+			        			<i class="fa fa-times"></i>
+			        		</div>
+			        	</li>
+			        </ul>
+			    </div>
+			    <div class="addVideos">
+			    	<div>Add Video Clip</div>
+					<div class="input-group">
+					  <span class="input-group-addon" >Video</span>
+					  <select ng-model="controller.addContainer.videoId" ng-options="video.name for video in controller.videos">{{video.name}}</select>
+					  </select>
+					</div>
+				    <div class="input-group">
+					  <span class="input-group-addon" >Name</span>
+					  <input type="text" class="form-control" placeholder="name" id="add-name" ng-model="controller.addContainer.name">
+					</div>
+				    <div class="input-group">
+					  <span class="input-group-addon" >Start Time</span>
+					  <input type="text" class="form-control" placeholder="start-time" id="add-start-time" ng-model="controller.addContainer.startTime">
+					</div>
+					<div class="input-group">
+					  <span class="input-group-addon" >End Time</span>
+					  <input type="text" class="form-control" placeholder="end-time" id="add-end-time" ng-model="controller.addContainer.endTime">
+					</div>
+					 <button type="button" class="btn btn-success" ng-click="controller.addVideo($index)">save</button>
+					 <button type="button" class="btn btn-success" ng-click="controller.clearForm()">clear</button>
+			    </div>
+			</div>
+		</script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+		<script src="theVideosApp.js"></script>
+	</body>
+</html>
