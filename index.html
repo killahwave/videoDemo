@@ -28,7 +28,6 @@
 				<video width="640" height="360" id="the-video" preload="" controls="controls">
 					 <source ng-repeat="src in clips[controller.currentVideo].sources" src="{{controller.wrapResourceUrl(src.src)}}">
 				</video>
-
 			    <div class="playlist">
 			    	<div>Playlist - Click on clip name to play clip!<div>
 			        <ul>
@@ -42,7 +41,7 @@
 			        			<i class="fa fa-times"></i>
 			        		</div>
 			        		<br />
-			        		<div ng-repeat="tag in videos.tags track by $index" class="playlist-inline">Tags: {{tag}}</div>
+			        		<div ng-repeat="tag in videos.tags track by $index" class="playlist-inline">{{tag}}</div>
 			        	</li>
 			        </ul>
 			    </div>
@@ -68,15 +67,14 @@
 			        <div class="input-group">
 					  <span class="input-group-addon" >Tags</span>
 					  <input type="text" class="form-control" placeholder="tags" id="add-tags" ng-model="controller.currentTag">
-		              <button type="button" class="btn btn-success pull-right" ng-click="controller.addTag()">save</button>
-		              <div ng-repeat="tag in controller.addContainer.tags">
-		              	<div>
-		              		{{tag}}
-	        				<div ng-click="controller.deleteTag($index)" class="playlist-inline">
-			        			<i class="fa fa-times"></i>
-			        		</div>
-					    </div>
-		              </div>
+				              <button type="button" class="btn btn-success pull-right" ng-click="controller.addTag()">save</button>
+				              <div ng-repeat="tag in controller.addContainer.tags">
+				              	<div>{{tag}}
+		        				<div ng-click="controller.deleteTag($index)" class="playlist-inline">
+				        			<i class="fa fa-times"></i>
+				        		</div>
+						    </div>
+				              </div>
 					</div>
 					 <button type="button" class="btn btn-success" ng-click="controller.addVideo($index)">save</button>
 					 <button type="button" class="btn btn-success" ng-click="controller.clearForm()">clear</button>
