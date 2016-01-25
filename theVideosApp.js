@@ -9,12 +9,15 @@ app.controller('videoPlayer', ['$scope', '$sce', '$timeout', '$document', functi
             	mode: false,
             	index: -1
             };
+            $scope.tagStore = [];
+            controller.currentTag = null;
             controller.videoPlayer = angular.element(document.querySelector('#the-video'));
             controller.addContainer = {
             	videoId: null,
             	startTime: null,
             	endTime: null,
-            	name: null
+            	name: null,
+                tags: []
             };
             $scope.clips = [
             	{
@@ -25,7 +28,8 @@ app.controller('videoPlayer', ['$scope', '$sce', '$timeout', '$document', functi
             		sources: [
 	                    {src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov', type: "video/mp4"},
 	                    {src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg', type: "video/ogg"}
-	                ]
+	                ],
+                    tags:[]
             	},
             	{
             		videoId: 0,
@@ -36,7 +40,8 @@ app.controller('videoPlayer', ['$scope', '$sce', '$timeout', '$document', functi
 	                    {src: 'http://static.videogular.com/assets/videos/videogular.mp4', type: "video/mp4"},
 	                    {src: 'http://static.videogular.com/assets/videos/videogular.webm', type: "video/webm"},
 	                    {src: 'http://static.videogular.com/assets/videos/videogular.ogg', type: "video/ogg"}
-	                ]
+	                ],
+                    tags:[]
             	}
             ];
             controller.videos = [
@@ -104,7 +109,8 @@ app.controller('videoPlayer', ['$scope', '$sce', '$timeout', '$document', functi
             		startTime: null,
             		endTime: null,
             		sources: [],
-            		name: null
+            		name: null,
+                    tags: []
             	};
             };
             controller.deleteClip = function(index){
@@ -115,6 +121,13 @@ app.controller('videoPlayer', ['$scope', '$sce', '$timeout', '$document', functi
             		mode: false,
             		index: -1
             	};
+            };
+            controller.addTag = function(){
+                controller.addContainer.tags.push(controller.currentTag);
+                controller.currentTag = null;
+            };
+            controller.deleteTag = function(index){
+                controller.addContainer.tags.splice(controller.addContainer.tags.indexOf(index));
             };
             controller.playClips();
 }]);
